@@ -2,7 +2,7 @@ import tweepy
 import secrets
 import pandas as pd
 
-name = 'valid'
+name = 'train'
 df = pd.read_csv(name + ".tsv", sep="\t")
 auth = tweepy.OAuthHandler(secrets.CONSUMER_KEY, secrets.CONSUMER_SECRET)
 auth.set_access_token(secrets.ACCESS_KEY, secrets.ACCESS_SECRET)
@@ -24,7 +24,7 @@ Id_list = []
 label_list = []
 text_list = []
 for i in range(df.shape[0]):
-    if idx % 500 == 0:
+    if idx % 20 == 0:
         print('[I] number of ids processed:', idx)
     try:
         json = api.get_status(df['Id'][i], tweet_mode='extended')
@@ -58,7 +58,7 @@ for i in range(df.shape[0]):
         label_list.append(df['Label'][i])
         text_list.append(df['Text'][i])
 
-        print(verfied, retweet_count, followers_count, url_count, photo_count, video_count)
+        # print(verfied, retweet_count, followers_count, url_count, photo_count, video_count)
         # tweets_by_API.append(json)
     except tweepy.TweepError as e:
         print(e)
@@ -76,4 +76,4 @@ new_df = pd.DataFrame({
     'video_count': video_count_list,
     'Label': label_list
 })
-df.to_csv(name + '_meta.tsv', sep="\t")
+new_df.to_csv(name + '_meta.tsv', sep="\t")
