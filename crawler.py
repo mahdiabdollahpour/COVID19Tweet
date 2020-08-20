@@ -2,7 +2,7 @@ import tweepy
 import secrets
 import pandas as pd
 
-name = 'train'
+name = 'valid'
 df = pd.read_csv(name + ".tsv", sep="\t")
 auth = tweepy.OAuthHandler(secrets.CONSUMER_KEY, secrets.CONSUMER_SECRET)
 auth.set_access_token(secrets.ACCESS_KEY, secrets.ACCESS_SECRET)
