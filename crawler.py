@@ -2,7 +2,7 @@ import tweepy
 import secrets
 import pandas as pd
 
-name = 'train'
+# name = 'train'
 
 
 def crawl(name, CONSUMER_KEY=secrets.CONSUMER_KEY, CONSUMER_SECRET=secrets.CONSUMER_SECRET,
@@ -115,4 +115,4 @@ def crawl(name, CONSUMER_KEY=secrets.CONSUMER_KEY, CONSUMER_SECRET=secrets.CONSU
     new_df.to_csv(name + '_meta.tsv', sep="\t")
 
 
-crawl('train')
+crawl('valid')
