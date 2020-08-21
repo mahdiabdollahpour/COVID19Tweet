@@ -1,5 +1,5 @@
 # entities = ['LOC', 'ORG', 'PER', 'NORP', 'DATE', 'O', 'MISC']
-entities = ['LOC', 'ORG', 'PER', 'O']
+entities = ['LOC', 'ORG', 'PER', 'MISC','O']
 entities_rev = {}
 for i in range(len(entities)):
     entities_rev[entities[i]] = i
