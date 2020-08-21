@@ -1,5 +1,5 @@
 # entities = ['LOC', 'ORG', 'PER', 'NORP', 'DATE', 'O', 'MISC']
-entities = ['LOC', 'ORG', 'PER','O']
+entities = ['LOC', 'ORG', 'PER', 'O']
 entities_rev = {}
 for i in range(len(entities)):
     entities_rev[entities[i]] = i
@@ -15,10 +15,11 @@ model = None
 
 
 def get_hotvector_ner(text_sentence):
-    vec = np.zeros(len(entities))
+    vec = np.zeros(len(entities) - 1)
     res = bert_ner(text_sentence)
     for ent in res:
-        vec[entities_rev[ent]] += 1
+        if ent != 'O':
+            vec[entities_rev[ent]] += 1
     return vec
 
 
