@@ -33,6 +33,7 @@ def crawl(name, CONSUMER_KEY=secrets.CONSUMER_KEY, CONSUMER_SECRET=secrets.CONSU
     user_created_at_list = []
     hashtag_count_list = []
     friends_count_list = []
+    user_url_list = []
     for i in range(df.shape[0]):
         if idx % 20 == 0:
             print('[I] number of ids processed:', idx)
@@ -46,7 +47,9 @@ def crawl(name, CONSUMER_KEY=secrets.CONSUMER_KEY, CONSUMER_SECRET=secrets.CONSU
             statuses_count = json["user"]["statuses_count"]
             user_created_at = json["user"]["created_at"][-4:]
             friends_count = json['user']['friends_count']
-
+            user_url = 0
+            if 'url' in json['user']['entities']:
+                user_url = 1
             url_count = 0
             if 'urls' in json['entities']:
                 url_count = len(json['entities']['urls'])
@@ -81,9 +84,9 @@ def crawl(name, CONSUMER_KEY=secrets.CONSUMER_KEY, CONSUMER_SECRET=secrets.CONSU
             user_created_at_list.append(user_created_at)
             hashtag_count_list.append(hashtag_count)
             friends_count_list.append(friends_count)
-
+            user_url_list.append(user_url)
             print(verfied, retweet_count, followers_count, url_count, photo_count, truncated, listed_count,
-                  statuses_count, user_created_at, hashtag_count, friends_count)
+                  statuses_count, user_created_at, hashtag_count, friends_count,user_url)
             # tweets_by_API.append(json)
         except tweepy.TweepError as e:
             print(e)
@@ -105,9 +108,11 @@ def crawl(name, CONSUMER_KEY=secrets.CONSUMER_KEY, CONSUMER_SECRET=secrets.CONSU
         'user_created_at': user_created_at_list,
         'hashtag_count': hashtag_count_list,
         'friends_count': friends_count_list,
+        'user_url': user_url_list,
         'Label': label_list
 
     })
     new_df.to_csv(name + '_meta.tsv', sep="\t")
+
 
 crawl('train')
