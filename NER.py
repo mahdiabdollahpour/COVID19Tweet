@@ -150,3 +150,6 @@ def dummy_ner(sequence, max_len, tokenizer):
     # print(len(sequence))
 
     return [random.randint(0, len(entities) - 1) for i in range(max_len)]
+
+
+get_hotvector_ner('some sample text')
