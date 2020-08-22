@@ -17,7 +17,7 @@ model = None
 def get_hotvector_ner(text_sentence):
     vec = np.zeros(len(entities) - 1)
     res = bert_ner(text_sentence)
-	res = list(set(res))
+    res = list(set(res))
     for ent in res:
         if ent != 'O':
             vec[entities_rev[ent]] += 1
